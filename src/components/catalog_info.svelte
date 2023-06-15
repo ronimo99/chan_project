@@ -1,0 +1,46 @@
+<script>
+  import { Lightbox } from "svelte-lightbox";
+  import PocketBase from 'pocketbase';
+	import { afterUpdate, onMount } from "svelte/internal";
+  const pb = new PocketBase('http://127.0.0.1:8090'); //PocketBase database server IP
+
+  export let post_id;
+  export let board;
+  let op = {};
+  let data_url;
+
+  //console.log(post_id);
+  onMount(async ()=> {
+    op = await pb.collection("posts").getOne(`${post_id}`);
+    if (op.data != "")
+      data_url = pb.files.getUrl(op, op.data, {'thumb': '0x100'});
+    else data_url = "";
+  });
+
+  afterUpdate(async ()=> {
+    op = await pb.collection("posts").getOne(`${post_id}`);
+    if (op.data != "")
+      data_url = pb.files.getUrl(op, op.data, {'thumb': '0x100'});
+    else data_url = "";
+  });
+
+</script>
+
+<style>
+    .square {
+    height: 300px;
+    width: 170px;
+  }
+</style>
+
+<div class="square hover:shadow-xl block overflow-hidden content-center scrollbar-hide bg-orange-200">
+  <Lightbox description="">
+    <img src={data_url} alt="">
+  </Lightbox>
+  <div class="text-center p-2 text-sm">
+    <a class="text-m font-bold overflow-y-auto break-words" href="/{board}/{op.post_number}">{op.comment}</a>
+    <p class="font-sans text-center text-sm">
+      {op.comment}
+    </p>
+  </div>
+</div>

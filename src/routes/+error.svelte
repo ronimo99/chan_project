@@ -1,0 +1,1 @@
+<h2 class=" text-5xl font-bold font-sans webkit-font-smoothing antialiased text-center  ">ERROR: Couldn't locate what you're looking for.</h2>

@@ -1,0 +1,132 @@
+{
+  "uuids": {
+    "testing_uuid": 1234567890,
+    "technology_uuid": 1234567890,
+    "idk_uuid": 1234567890,
+    "manga_uuid": 1234567890,
+    "politics_uuid": 1234567890,
+    "random_uuid": 1234567890,
+    "sports_uuid": 1234567890
+  },
+
+  "testing_catalog": [
+    {
+      "id": 0,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Primer hilo, estoy construyendo ésta app.",
+      "thread_title": "Primer hilo, arriba!",
+      "thread_data": null
+    },
+    {
+      "id": 333,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+
+  "technology_catalog": [
+    {
+      "id": 12345,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+  "idk_catalog": [
+    {
+      "id": 451324,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+  "manga_catalog": [
+    {
+      "id": 176867,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+  "politics_catalog": [
+    {
+      "id": 176454,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+  "random_catalog": [
+    {
+      "id": 197657463,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+  "sports_catalog": [
+    {
+      "id": 197641324,
+      "date": "18/05/2023 10:03:33",
+      "thread_post": "Segundo hilo, estoy construyendo ésta app.",
+      "thread_title": "Segundo hilo, arriba!",
+      "thread_data": "https://designshack.net/wp-content/uploads/placeholder-image.png"
+    }
+  ],
+
+  "threads": [
+    {
+      "id": 0,
+      "posts": [
+        {
+          "id": 0,
+          "date": "18/05/2023 10:03:33",
+          "comment": "1.",
+          "data": null
+        },
+        {
+          "id": 1,
+          "date": "18/05/2023 10:03:35",
+          "comment": "2.",
+          "data": null
+        },
+        {
+          "id": 2,
+          "date": "18/05/2023 10:03:35",
+          "comment": "FUCK FUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCK FUCKFUCKFUCKFUCK.",
+          "data": null
+        },
+        {
+          "id": 3,
+          "date": "18/05/2023 10:03:35",
+          "comment": "AAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAA AAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAA AAAAAAAAAa AAAAAAAAAAAAAAAAAAAAAAAa AAAAAAAAAAAAAAAaa AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa.",
+          "data": null
+        }
+      ]
+    },
+    {
+      "id": 333,
+      "posts": [
+        {
+          "id": 336,
+          "date": "18/05/2023 10:03:33",
+          "comment": "Parguela.",
+          "data": null
+        },
+        {
+          "id": 339,
+          "date": "18/05/2023 10:03:35",
+          "comment": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+          "data": null
+        }
+      ]
+    }
+  ]
+}
