@@ -23,7 +23,7 @@
 </script>
 
 <div>
-  <h2 class=" text-4xl font-bold font-sans webkit-font-smoothing antialiased text-center  ">{board}</h2>
+  <h2 class=" text-4xl font-bold font-sans webkit-font-smoothing antialiased text-center">{board}</h2>
   <div class="justify-center content-center grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] p-3">
     {#each thread_list as thread}
       <CatalogInfo post_id={thread.op} board={board} />
@@ -32,5 +32,5 @@
 </div>
 
 {#if $reply_box_toggle}
-  <ReplyBox thread_id="" board="" />
+  <ReplyBox thread_id="" board={board} />
 {/if}

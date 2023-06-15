@@ -16,7 +16,7 @@
 
   //fetching posts in thread from the database
   onMount(async ()=> {
-    op_post = await pb.collection("posts").getFullList({filter: `post_number = '${$page.params.id}' && board = '${$page.params.slug}'`});
+    op_post = await pb.collection("posts").getFullList({filter: `post_number = '${$page.params.id}' && board = '${$page.params.board}'`});
     //console.log(op_post);
     thread_id = op_post[0].thread;
     posts = await pb.collection("posts").getFullList({filter: `thread = '${thread_id}'`, sort: '+post_number'});
@@ -24,7 +24,7 @@
   });
 
   afterUpdate(async ()=> {
-    op_post = await pb.collection("posts").getFullList({filter: `post_number = '${$page.params.id}' && board = '${$page.params.slug}'`});
+    op_post = await pb.collection("posts").getFullList({filter: `post_number = '${$page.params.id}' && board = '${$page.params.board}'`});
     thread_id = op_post[0].thread;
     posts = await pb.collection("posts").getFullList({filter: `thread = '${thread_id}'`, sort: '+post_number'});
   });
@@ -41,5 +41,5 @@
 </div>
 
 {#if $reply_box_toggle}
-  <ReplyBox thread_id={thread_id} board={$page.params.slug}/>
+  <ReplyBox thread_id={thread_id} board={$page.params.board}/>
 {/if}

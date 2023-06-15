@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte/internal";
+  import { onMount, select_option } from "svelte/internal";
   import PocketBase from "pocketbase";
 	import Draggable from "./draggable.svelte";
   const pb = new PocketBase('http://127.0.0.1:8090'); //PocketBase database server IP
@@ -7,7 +7,6 @@
 
   export let thread_id;
   export let board;
-  let thread;
   let textarea_mouseover = false;
   let textarea_comment = "";
   let file;
@@ -27,26 +26,36 @@
   }
 
   async function create_thread(){
+    let id;
     const uuid = await pb.collection('id').getFullList({filter: `board = '${board}'`});
-    const new_post = {
+    id = uuid[0].post_number + 1;
+    let new_post = {
         "comment": textarea_comment,
-        "post_number": uuid[0].post_number + 1,
+        "post_number": id,
         "thread": "",
         "board": board,
     };
-    await pb.collection("posts").create(new_post);
+    const database_post = await pb.collection("posts").create(new_post);
+    console.log(database_post);
     const updated_id = {
-      "post_number": uuid[0].post_number + 1,
+      "post_number": id,
       "board": board,
     };
     await pb.collection("id").update(uuid[0].id, updated_id);
-    await pb.collection("posts").getFirstListItem({filter: `post_number = '${uuid[0].post_number + 1}' && board = '${board}'`})
-
-    //TODO:
-    /*const new_thread = {
-      "op": a faggot, //hay que hacer más fetches :(
+    //const database_post = await pb.collection("posts").getFullList({filter: `post_number = '${id}' && board = '${board}'`});
+    const new_thread = {
+      "op": database_post.id,
       "board": board,
-    };*/
+    };
+    const database_thread = await pb.collection("threads").create(new_thread);
+    console.log(database_thread);
+    new_post = {
+        "comment": textarea_comment,
+        "post_number": id,
+        "thread": database_thread.id,
+        "board": board,
+    };
+    await pb.collection("posts").update(database_post.id, new_post);
   }
 
   async function post_comment(){

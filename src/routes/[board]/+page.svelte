@@ -4,7 +4,7 @@
 
   let board = "";
   $: console.log($page.params);
-  $: switch ($page.params.slug) {
+  $: switch ($page.params.board) {
     case "s":
       board = "sports";
       break;
