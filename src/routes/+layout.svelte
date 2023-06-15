@@ -6,7 +6,7 @@
 
 <div>
 	<body class="grow">
-      <Header/>
+      <Header />
       <slot />
 	</body>
   <div class="bottom-10 w-full pl-1 pb-1">

@@ -9,7 +9,6 @@
   //data file handling
   if (post.data != "") {
     data_url = pb.files.getUrl(post, post.data, {'thumb': '0x0'});
-    //console.log(data_url);
   }
   
 </script>

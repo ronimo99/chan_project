@@ -1,6 +1,7 @@
 <script>
   import {reply_box_toggle} from "/src/stores.js"
-  const boards = [
+
+    const boards = [
     {title: "Manga", short: "/m/", href: "/m/"},
     {title: "Sports", short: "/s/", href: "/s/"},
     {title: "IDK", short: "/idk/", href: "/idk/"},
@@ -19,16 +20,15 @@
 
 <div class="shadow pt-1 pb-1 pl-1">
   [
-  {#each boards as board}
-    <a href={board.href}>{board.short} </a>
-  {/each}
-  <div class="absolute right-0 top-0 pr-2">
-    [
-    <button on:click>Bottom,</button>
-    <button on:click> New Thread,</button>
-    <button on:click={toggle_reply_box}> Reply Box</button>
-    ]
-  </div>
+    {#each boards as board}
+      <a href={board.href}>{board.short} </a>
+    {/each}
+    <div class="absolute right-0 top-0 pr-2">
+      [
+        <button on:click>Bottom,</button>
+        <button on:click={toggle_reply_box}> Reply Box</button>
+      ]
+    </div>
   ]
 </div>
 

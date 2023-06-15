@@ -1,7 +1,7 @@
 <script>
-  import { onMount, select_option } from "svelte/internal";
   import PocketBase from "pocketbase";
 	import Draggable from "./draggable.svelte";
+  import {reply_box_post} from "/src/stores.js"
   const pb = new PocketBase('http://127.0.0.1:8090'); //PocketBase database server IP
 
 
@@ -9,13 +9,8 @@
   export let board;
   let textarea_mouseover = false;
   let textarea_comment = "";
+  let title = "";
   let file;
-
-  onMount(async ()=> {
-    if (thread_id != "")
-      thread = await pb.collection('threads').getOne(thread_id);
-    
-  });
 
   function textarea_enter(){
     textarea_mouseover = true;
@@ -42,10 +37,10 @@
       "board": board,
     };
     await pb.collection("id").update(uuid[0].id, updated_id);
-    //const database_post = await pb.collection("posts").getFullList({filter: `post_number = '${id}' && board = '${board}'`});
     const new_thread = {
       "op": database_post.id,
       "board": board,
+      "title": title,
     };
     const database_thread = await pb.collection("threads").create(new_thread);
     console.log(database_thread);
@@ -56,11 +51,13 @@
         "board": board,
     };
     await pb.collection("posts").update(database_post.id, new_post);
+    title = "";
+    textarea_comment = "";
+    $reply_box_post = true;
   }
 
   async function post_comment(){
     const uuid = await pb.collection('id').getFullList({filter: `board = '${board}'`});
-    //console.log(uuid);
     const new_post = {
         "comment": textarea_comment,
         "post_number": uuid[0].post_number + 1,
@@ -73,6 +70,8 @@
       "board": board,
     };
     await pb.collection('id').update(uuid[0].id, updated_id);
+    textarea_comment = "";
+    $reply_box_post = true;
   }
 </script>
 
@@ -88,6 +87,7 @@
       <div class="absolute right-1 top-0">
         <button on:click={create_thread} type="submit" class="pl-2 pr-2 border border-orange-400 center-content hover:bg-orange-300 hover:shadow"><b>Post</b></button>
       </div>
+      <textarea bind:value={title} on:mouseenter={textarea_enter} on:mouseleave={textarea_leave} rows="1" maxRows="1" class="pt-2 resize w-full block text-sm border border-gray-300 focus:ring-blue-300 focus:border-blue-300 " placeholder="Thread title"></textarea>
     {/if}
     <textarea bind:value={textarea_comment} on:mouseenter={textarea_enter} on:mouseleave={textarea_leave} rows="4" maxRows="40" class="pt-2 resize w-full block text-sm border border-gray-300 focus:ring-blue-300 focus:border-blue-300 " placeholder="Leave a comment..."></textarea>
     <input bind:value={file} class="w-full block text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none" type="file">

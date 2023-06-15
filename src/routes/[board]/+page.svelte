@@ -30,7 +30,7 @@
       board = "testing";
       break;
   }
-  //$: console.log(board);
+  $: console.log(board);
 
 </script>
 

@@ -1,28 +1,25 @@
 <script>
   import { Lightbox } from "svelte-lightbox";
   import PocketBase from 'pocketbase';
-	import { afterUpdate, onMount } from "svelte/internal";
+	import { onMount } from "svelte/internal";
   const pb = new PocketBase('http://127.0.0.1:8090'); //PocketBase database server IP
 
-  export let post_id;
-  export let board;
+  export let thread;
   let op = {};
-  let data_url;
+  let data_url = "";
+
+  async function update() {
+    op = await pb.collection("posts").getOne(thread.op);
+    if (op.data != "")
+      data_url = await pb.files.getUrl(op, op.data, {'thumb': '0x100'});
+  }
 
   //console.log(post_id);
   onMount(async ()=> {
-    op = await pb.collection("posts").getOne(`${post_id}`);
-    if (op.data != "")
-      data_url = pb.files.getUrl(op, op.data, {'thumb': '0x100'});
-    else data_url = "";
+    update();
   });
 
-  afterUpdate(async ()=> {
-    op = await pb.collection("posts").getOne(`${post_id}`);
-    if (op.data != "")
-      data_url = pb.files.getUrl(op, op.data, {'thumb': '0x100'});
-    else data_url = "";
-  });
+  $: thread, update();
 
 </script>
 
@@ -38,7 +35,7 @@
     <img src={data_url} alt="">
   </Lightbox>
   <div class="text-center p-2 text-sm">
-    <a class="text-m font-bold overflow-y-auto break-words" href="/{board}/{op.post_number}">{op.comment}</a>
+    <a class="text-m font-bold overflow-y-auto break-words" href="/{thread.board}/{op.post_number}">{thread.title}</a>
     <p class="font-sans text-center text-sm">
       {op.comment}
     </p>
