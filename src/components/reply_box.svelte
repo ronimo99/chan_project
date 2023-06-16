@@ -2,9 +2,9 @@
   import PocketBase from "pocketbase";
 	import Draggable from "./draggable.svelte";
   import {reply_box_post} from "/src/stores.js"
+  import {reply_box_toggle} from "/src/stores.js"
+  
   const pb = new PocketBase('http://127.0.0.1:8090'); //PocketBase database server IP
-
-
   export let thread_id;
   export let board;
   let textarea_mouseover = false;
@@ -22,16 +22,16 @@
 
   async function create_thread(){
     let id;
-    const uuid = await pb.collection('id').getFullList({filter: `board = '${board}'`});
+    let formData = new FormData();
+    const fileInput = document.getElementById("image");
+    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
     id = uuid[0].post_number + 1;
-    let new_post = {
-        "comment": textarea_comment,
-        "post_number": id,
-        "thread": "",
-        "board": board,
-    };
-    const database_post = await pb.collection("posts").create(new_post);
-    console.log(database_post);
+    if (file !== undefined) formData.append("data", fileInput.files[0]);
+    formData.append("comment", textarea_comment);
+    formData.append("post_number", uuid[0].post_number + 1);
+    formData.append("thread", "");
+    formData.append("board", board);
+    const database_post = await pb.collection("posts").create(formData);
     const updated_id = {
       "post_number": id,
       "board": board,
@@ -43,36 +43,35 @@
       "title": title,
     };
     const database_thread = await pb.collection("threads").create(new_thread);
-    console.log(database_thread);
-    new_post = {
-        "comment": textarea_comment,
-        "post_number": id,
-        "thread": database_thread.id,
-        "board": board,
-    };
-    await pb.collection("posts").update(database_post.id, new_post);
-    title = "";
-    textarea_comment = "";
+    formData.append("thread", database_thread.id);
+    await pb.collection("posts").update(database_post.id, formData);
     $reply_box_post = true;
+    $reply_box_toggle = false;
   }
 
   async function post_comment(){
-    const uuid = await pb.collection('id').getFullList({filter: `board = '${board}'`});
-    const new_post = {
-        "comment": textarea_comment,
-        "post_number": uuid[0].post_number + 1,
-        "thread": thread_id,
-        "board": board,
-    };
-    await pb.collection('posts').create(new_post);
+    let formData = new FormData();
+    const fileInput = document.getElementById("image");
+    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
+    if (file !== undefined) formData.append("data", fileInput.files[0]);
+    formData.append("comment", textarea_comment);
+    formData.append("post_number", uuid[0].post_number + 1);
+    formData.append("thread", thread_id);
+    formData.append("board", board);
+    await pb.collection("posts").create(formData);
     const updated_id = {
       "post_number": uuid[0].post_number + 1,
       "board": board,
     };
-    await pb.collection('id').update(uuid[0].id, updated_id);
-    textarea_comment = "";
+    await pb.collection("id").update(uuid[0].id, updated_id);
     $reply_box_post = true;
+    $reply_box_toggle = false;
   }
+
+  /* 
+    regex for replies: "#[0-9]+"
+  */
+
 </script>
 
 <Draggable textarea_mouseover={textarea_mouseover}>
@@ -90,6 +89,6 @@
       <textarea bind:value={title} on:mouseenter={textarea_enter} on:mouseleave={textarea_leave} rows="1" maxRows="1" class="pt-2 resize w-full block text-sm border border-gray-300 focus:ring-blue-300 focus:border-blue-300 " placeholder="Thread title"></textarea>
     {/if}
     <textarea bind:value={textarea_comment} on:mouseenter={textarea_enter} on:mouseleave={textarea_leave} rows="4" maxRows="40" class="pt-2 resize w-full block text-sm border border-gray-300 focus:ring-blue-300 focus:border-blue-300 " placeholder="Leave a comment..."></textarea>
-    <input bind:value={file} class="w-full block text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none" type="file">
+    <input bind:value={file} id="image" class="w-full block text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 focus:outline-none" type="file">
   </div>
 </Draggable>

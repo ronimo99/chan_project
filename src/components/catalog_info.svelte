@@ -10,8 +10,8 @@
 
   async function update() {
     op = await pb.collection("posts").getOne(thread.op);
-    if (op.data != "")
-      data_url = await pb.files.getUrl(op, op.data, {'thumb': '0x100'});
+    if (op.data !== undefined)
+      data_url = pb.files.getUrl(op, op.data, {'thumb': '100x0'});
   }
 
   //console.log(post_id);
