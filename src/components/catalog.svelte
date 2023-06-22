@@ -14,14 +14,15 @@
     thread_list = await pb.collection('threads').getFullList({filter: `board = '${board}'`, sort: "-updated"});
   }
 
-  //lifecycle routine
+  //fetching data from db on page load
   onMount(async ()=> {
     update();
   });
 
-  //instead of afterUpdate() we use this and check again after a board change, pretty slick
+  //fetching data on board update
   $: board, update();
-  //same here
+
+  //ressetting the flag after a post for the next shitpost
   $: if ($reply_box_post) {
     $reply_box_post = false;
     update();
@@ -31,7 +32,7 @@
 
 <div>
   <h2 class=" text-4xl font-bold font-sans webkit-font-smoothing antialiased text-center">{board}</h2>
-  <div class="justify-center content-center p-5 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
+  <div class="justify-center content-center p-5 grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))]">
     {#each thread_list as thread}
       <CatalogInfo thread={thread}/>
     {/each}

@@ -20,17 +20,43 @@
     textarea_mouseover = false;
   }
 
+  /*async function check_replies(comment){
+    let p = 0;
+    let regex = /#\d+/g; //matches any number with a # in front ex: "#324521, #1"
+    let match, indexes = [];
+    let spliced_comment = [];
+
+    while (match = regex.exec(comment)){
+      indexes.push([match.index, match.index+match[0].length]);
+    }
+
+    console.log(indexes[0][0]);
+    console.log(indexes[0][1]);
+    console.log(indexes[0]);
+
+
+
+    console.log(indexes);
+    if (indexes.length > 0) {
+      for (let i = 0; i < indexes.length; ++i){
+        spliced_comment.push(comment.splice(p,indexes[i][0]));
+      }
+    }
+  }*/
+
   async function create_thread(){
+    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
     let id;
+    id = uuid[0].post_number + 1;
     let formData = new FormData();
     const fileInput = document.getElementById("image");
-    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
-    id = uuid[0].post_number + 1;
+    
     if (file !== undefined) formData.append("data", fileInput.files[0]);
     formData.append("comment", textarea_comment);
     formData.append("post_number", uuid[0].post_number + 1);
     formData.append("thread", "");
     formData.append("board", board);
+
     const database_post = await pb.collection("posts").create(formData);
     const updated_id = {
       "post_number": id,
@@ -50,9 +76,10 @@
   }
 
   async function post_comment(){
+    //check_replies(textarea_comment);
+    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
     let formData = new FormData();
     const fileInput = document.getElementById("image");
-    const uuid = await pb.collection("id").getFullList({filter: `board = '${board}'`});
     if (file !== undefined) formData.append("data", fileInput.files[0]);
     formData.append("comment", textarea_comment);
     formData.append("post_number", uuid[0].post_number + 1);
@@ -67,10 +94,6 @@
     $reply_box_post = true;
     $reply_box_toggle = false;
   }
-
-  /* 
-    regex for replies: "#[0-9]+"
-  */
 
 </script>
 

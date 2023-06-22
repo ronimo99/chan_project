@@ -17,20 +17,18 @@
   }
 
 </script>
-
-<div class="shadow pt-1 pb-1 pl-1 bg-orange-200">
-  [
-    {#each boards as board}
-      <a href={board.href}>{board.short} </a>
-    {/each}
-    <div class="absolute right-0 top-0 pr-2">
-      [
-        <a href="#end">Bottom,</a>
-        <button on:click={toggle_reply_box}> Reply Box</button>
-      ]
-    </div>
-  ]
+<div class="pt-3">
+  <div class="shadow pt-1 pb-1 pl-1 bg-orange-200">
+    [
+      {#each boards as board}
+        <a href={board.href}>{board.short} </a>
+      {/each}
+      <div class="absolute right-0  pr-2">
+        [
+          <a href="#">TOP,</a>
+          <button on:click={toggle_reply_box}> Reply Box</button>
+        ]
+      </div>
+    ]
+  </div>
 </div>
-
-<h1 class="text-5xl font-bold -webkit-font-smoothing: antialiased; pl-9 pt-3">CHAN🐊</h1>
-<p class="font-mono pl-10 pb-5">By DaRubitroN</p>

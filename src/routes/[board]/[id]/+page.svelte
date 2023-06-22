@@ -46,6 +46,7 @@
     {/each}
 </div>
 
+
 {#if $reply_box_toggle}
   <ReplyBox thread_id={thread_id} board={$page.params.board}/>
 {/if}
