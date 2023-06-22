@@ -7,7 +7,7 @@
   }
 </script>
 
-<footer class="bg-orange-200 shadow m-4 border-current">
+<footer class="bg-orange-200 shadow m-4 border-current" id="bottom">
   <div class="p-4 flex items-center justify-between">
     <span class="text-sm sm:text-center">© 2023 <a href="/" class="hover:underline">CHAN🐊 by DaRubitroN™</a>. All Rights Reserved.</span>
     <ul class="flex flex-wrap items-center mt-3 text-sm font-medium sm:mt-0">

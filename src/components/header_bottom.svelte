@@ -18,14 +18,14 @@
 
 </script>
 <div class="pt-3">
-  <div class="shadow pt-1 pb-1 pl-1 bg-orange-200">
+  <div class=" pt-1 pb-1 pl-1 ">
     [
       {#each boards as board}
         <a href={board.href}>{board.short} </a>
       {/each}
       <div class="absolute right-0  pr-2">
         [
-          <a href="#">TOP,</a>
+          <a href="#top">TOP,</a>
           <button on:click={toggle_reply_box}> Reply Box</button>
         ]
       </div>
